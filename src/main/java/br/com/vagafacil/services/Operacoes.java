@@ -1,5 +1,6 @@
 package br.com.vagafacil.services;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import br.com.vagafacil.dao.BancoDAO;
@@ -10,6 +11,7 @@ public class Operacoes {
     private static BancoDAO database = BancoDAO.getInstanciaBancoDAO();
 
     public static void cadastrarEmpresa() {
+        @SuppressWarnings("resource")
         Scanner scan = new Scanner(System.in);
 
         try {
@@ -38,6 +40,7 @@ public class Operacoes {
     }
 
     public static void cadastrarTrabalhador() {
+        @SuppressWarnings("resource")
         Scanner scan = new Scanner(System.in);
 
         try {
@@ -62,6 +65,101 @@ public class Operacoes {
             System.out.println("Trabalhador cadastrado com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar trabalhador: " + e.getMessage());
+        }
+    }
+
+    public static void contratarTrabalhador() {
+        @SuppressWarnings("resource")
+        Scanner scan = new Scanner(System.in);
+        
+        String cnpj;
+        String cpf;
+        Boolean empresaEncontrada = false;
+        Boolean trabalhadorEncontrado = false;
+
+        System.out.println("Digite o CNPJ da empresa");
+        cnpj = scan.nextLine();
+
+        ArrayList<Empresa> empresas = database.getArrayEmpresas();
+        ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
+
+        for(Empresa empresa : empresas) {
+            if(((Empresa)empresa).getCnpj().equals(cnpj)) {
+                empresaEncontrada = true;
+                Empresa emp = (Empresa) empresa;
+
+                System.out.println("Digite o CPF do trabalhado que você deseja contratar");
+                cpf = scan.nextLine();
+
+                for(Trabalhador trabalhador : trabalhadores) {
+                    if(((Trabalhador)trabalhador).getCpf().equals(cpf)) {
+                        trabalhadorEncontrado = true;
+                        if(((Trabalhador)trabalhador).getEstaTrabalhando().equals(true)) {
+                            System.out.println("Não é possível contratar " +trabalhador.getNome() +", pois ele(a) já está em um trabalho");
+                            break;
+                        } else {
+                            emp.adicionarFuncionario(trabalhador);
+                            trabalhador.setEstaTrabalhando(true);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!empresaEncontrada) {
+            System.out.println("Não existe nenhuma empresa com esse CNPJ");
+        }
+
+        if (!trabalhadorEncontrado) {
+            System.out.println("Não existe nenhum trabalhador com esse CPF");
+        }
+    }
+
+    public static void demitirTrabalhador() {
+        @SuppressWarnings("resource")
+        Scanner scan = new Scanner(System.in);
+        
+        String cnpj;
+        String cpf;
+        Boolean empresaEncontrada = false;
+        Boolean trabalhadorEncontrado = false;
+
+        System.out.println("Digite o CNPJ da empresa");
+        cnpj = scan.nextLine();
+
+        ArrayList<Empresa> empresas = database.getArrayEmpresas();
+        ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
+
+        for(Empresa empresa : empresas) {
+            if(((Empresa)empresa).getCnpj().equals(cnpj)) {
+                empresaEncontrada = true;
+                Empresa emp = (Empresa) empresa;
+
+                System.out.println("Digite o CPF do trabalhado que você deseja contratar");
+                cpf = scan.nextLine();
+
+                for(Trabalhador trabalhador : trabalhadores) {
+                    if(((Trabalhador)trabalhador).getCpf().equals(cpf)) {
+                        trabalhadorEncontrado = true;
+                        for(Trabalhador trb  : emp.getFuncionarios()) {
+                            if (((Trabalhador)trb).getCpf().equals(cpf)) {
+                                emp.demitirFuncionario(trb);
+                                trb.setEstaTrabalhando(false);
+                            } else {
+                                System.out.println("Esse funcionário não pertence à empresa");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!empresaEncontrada) {
+            System.out.println("Não existe nenhuma empresa com esse CNPJ");
+        }
+
+        if (!trabalhadorEncontrado) {
+            System.out.println("Não existe nenhum trabalhador com esse CPF");
         }
     }
 } 

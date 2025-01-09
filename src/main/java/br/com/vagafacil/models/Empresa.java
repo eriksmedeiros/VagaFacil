@@ -63,8 +63,12 @@ public class Empresa {
         return funcionarios;
     }
 
-    public void setFuncionarios(ArrayList<Trabalhador> funcionarios) {
-        this.funcionarios = funcionarios;
+    public void adicionarFuncionario(Trabalhador funcionario) {
+        funcionarios.add(funcionario);
+    }
+
+    public void demitirFuncionario(Trabalhador funcionario) {
+        funcionarios.remove(funcionario);
     }
 
     @Override
