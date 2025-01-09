@@ -6,12 +6,12 @@ public class Trabalhador {
     private String nome;
     private String cpf;
     private Double salario;
-    private String areaAtuacao;
+    private AreaAtuacao areaAtuacao;
     private String descricao;
     private ArrayList<String> empresas;
     private Boolean estaTrabalhando;
     
-    public Trabalhador(String nome, String cpf, Double salario, String areaAtuacao, String descricao, ArrayList<String> empresas, Boolean estaTrabalhando) {
+    public Trabalhador(String nome, String cpf, Double salario, AreaAtuacao areaAtuacao, String descricao, ArrayList<String> empresas, Boolean estaTrabalhando) {
         this.nome = nome;
         this.cpf = cpf;
         this.salario = salario;
@@ -45,11 +45,11 @@ public class Trabalhador {
         this.salario = salario;
     }
 
-    public String getAreaAtuacao() {
+    public AreaAtuacao getAreaAtuacao() {
         return areaAtuacao;
     }
 
-    public void setAreaAtuacao(String areaAtuacao) {
+    public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
         this.areaAtuacao = areaAtuacao;
     }
 

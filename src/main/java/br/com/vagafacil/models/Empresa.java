@@ -7,10 +7,10 @@ public class Empresa {
     private String nome;
     private Double contaBancaria;
     private String descricao;
-    private String areaAtuacao;
+    private AreaAtuacao areaAtuacao;
     private ArrayList<Trabalhador> funcionarios;
 
-    public Empresa(String cnpj, String nome, Double contaBancaria, String descricao, String areaAtuacao, ArrayList<Trabalhador> funcionarios) {
+    public Empresa(String cnpj, String nome, Double contaBancaria, String descricao, AreaAtuacao areaAtuacao, ArrayList<Trabalhador> funcionarios) {
         this.cnpj = cnpj;
         this.nome = nome;
         this.contaBancaria = contaBancaria;
@@ -51,11 +51,11 @@ public class Empresa {
         this.descricao = descricao;
     }
 
-    public String getAreaAtuacao() {
+    public AreaAtuacao getAreaAtuacao() {
         return areaAtuacao;
     }
 
-    public void setAreaAtuacao(String areaAtuacao) {
+    public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
         this.areaAtuacao = areaAtuacao;
     }
 

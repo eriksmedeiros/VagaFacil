@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import br.com.vagafacil.dao.BancoDAO;
+import br.com.vagafacil.models.AreaAtuacao;
 import br.com.vagafacil.models.Empresa;
 import br.com.vagafacil.models.Trabalhador;
 
@@ -28,8 +29,16 @@ public class Operacoes {
             System.out.println("Adicione uma descrição para a empresa:");
             String descricao = scan.nextLine();
 
-            System.out.println("Digite a área de atuação da empresa:");
-            String areaAtuacao = scan.nextLine();
+            AreaAtuacao areaAtuacao = null;
+            while (areaAtuacao == null) {
+                System.out.println("Escolha uma das Áreas de Atuação:");
+                AreaAtuacao.exibirOpções();
+                try {
+                    areaAtuacao = AreaAtuacao.valueOf(scan.nextLine().toUpperCase());
+                } catch (Exception e) {
+                    System.out.println("Opção inválida, tente novamente.");
+                }
+            }
 
             Empresa empresa = new Empresa(cnpj, nome, contaBancaria, descricao, areaAtuacao, null);
             database.adicionarEmpresa(empresa);
@@ -54,8 +63,16 @@ public class Operacoes {
             double salario = scan.nextDouble();
             scan.nextLine();
 
-            System.out.println("Adicione uma Área de Atuação:");
-            String areaAtuacao = scan.nextLine();
+            AreaAtuacao areaAtuacao = null;
+            while (areaAtuacao == null) {
+                System.out.println("Escolha uma das Áreas de Atuação:");
+                AreaAtuacao.exibirOpções();
+                try {
+                    areaAtuacao = AreaAtuacao.valueOf(scan.nextLine().toUpperCase());
+                } catch (Exception e) {
+                    System.out.println("Opção inválida, tente novamente.");
+                }
+            }
 
             System.out.println("Adicione uma Descrição:");
             String descricao = scan.nextLine();
