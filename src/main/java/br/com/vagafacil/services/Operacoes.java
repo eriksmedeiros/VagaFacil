@@ -115,8 +115,13 @@ public class Operacoes {
                             System.out.println("Não é possível contratar " +trabalhador.getNome() +", pois ele(a) já está em um trabalho");
                             break;
                         } else {
-                            emp.adicionarFuncionario(trabalhador);
-                            trabalhador.setEstaTrabalhando(true);
+                            if(emp.getContaBancaria() < trabalhador.getSalario()) {
+                                System.out.println("A empresa não tem saldo suficiente para pagar esse trabalhador.");
+                            } else {
+                                emp.adicionarFuncionario(trabalhador);
+                                trabalhador.setEstaTrabalhando(true);
+                                emp.setContaBancaria(emp.getContaBancaria() - trabalhador.getSalario());
+                            }
                         }
                     }
                 }
@@ -162,6 +167,7 @@ public class Operacoes {
                             if (((Trabalhador)trb).getCpf().equals(cpf)) {
                                 emp.demitirFuncionario(trb);
                                 trb.setEstaTrabalhando(false);
+                                emp.setContaBancaria(emp.getContaBancaria() + trabalhador.getSalario());
                             } else {
                                 System.out.println("Esse funcionário não pertence à empresa");
                             }
