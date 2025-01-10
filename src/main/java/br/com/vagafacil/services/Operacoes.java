@@ -11,36 +11,12 @@ import br.com.vagafacil.models.Trabalhador;
 public class Operacoes {
     private static BancoDAO database = BancoDAO.getInstanciaBancoDAO();
 
-    public static void cadastrarEmpresa() {
-        @SuppressWarnings("resource")
-        Scanner scan = new Scanner(System.in);
-
+    public static void cadastrarEmpresa(String nome, String cnpj, AreaAtuacao areaAtuacao, double contaBancaria, String descricao) {
         try {
-            System.out.println("Digite o nome da empresa: ");
-            String nome = scan.nextLine();
-
-            System.out.println("Digite o CNPJ da empresa: ");
-            String cnpj = scan.nextLine();
-
-            System.out.println("Digite o valor inicial da Conta Bancária:");
-            double contaBancaria = scan.nextDouble();
-            scan.nextLine();
-
-            System.out.println("Adicione uma descrição para a empresa:");
-            String descricao = scan.nextLine();
-
-            AreaAtuacao areaAtuacao = null;
-            while (areaAtuacao == null) {
-                System.out.println("Escolha uma das Áreas de Atuação:");
-                AreaAtuacao.exibirOpções();
-                try {
-                    areaAtuacao = AreaAtuacao.valueOf(scan.nextLine().toUpperCase());
-                } catch (Exception e) {
-                    System.out.println("Opção inválida, tente novamente.");
-                }
-            }
-
+            // Criação da empresa com os dados fornecidos
             Empresa empresa = new Empresa(cnpj, nome, contaBancaria, descricao, areaAtuacao, null);
+    
+            // Adiciona a empresa ao banco de dados
             database.adicionarEmpresa(empresa);
             System.out.println("Empresa cadastrada com sucesso!");
         } catch (Exception e) {

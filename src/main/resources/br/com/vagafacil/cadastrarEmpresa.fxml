@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.vagafacil.controller.CadastrarEmpresaController" spacing="15" style="-fx-padding: 20;">
+    <!-- Título -->
+    <Label text="Cadastrar Empresa" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <!-- Campos do formulário -->
+    <Label text="Nome da Empresa:" />
+    <TextField fx:id="txtNomeEmpresa" promptText="Digite o nome da empresa" />
+
+    <Label text="Área de Atuação:" />
+    <ComboBox fx:id="cbAreaAtuacao" promptText="Selecione a área de atuação" />
+
+    <Label text="CNPJ:" />
+    <TextField fx:id="txtCNPJ" promptText="Digite o CNPJ" />
+
+    <Label text="Conta Bancária:" />
+    <TextField fx:id="txtContaBancaria" promptText="Digite a conta bancária" />
+
+    <Label text="Descrição:" />
+    <TextField fx:id="txtDescricao" promptText="Digite uma descrição da empresa" />
+
+    <!-- Botões -->
+    <Button text="Cadastrar" fx:id="btnCadastrar" onAction="#cadastrarEmpresa" />
+    <Button text="Voltar" fx:id="btnVoltar" onAction="#voltarParaTelaInicial" />
+</VBox>
