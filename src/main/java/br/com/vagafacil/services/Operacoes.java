@@ -2,6 +2,7 @@ package br.com.vagafacil.services;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import br.com.vagafacil.dao.BancoDAO;
 import br.com.vagafacil.models.AreaAtuacao;
@@ -162,25 +163,36 @@ public class Operacoes {
         }
     }
 
-    public static ArrayList<Empresa> buscarEmpresas(AreaAtuacao area){
-        ArrayList<Empresa> empresas = database.getArrayEmpresas();
-        ArrayList<Empresa> empresasArea = new ArrayList<>();
-        for (Empresa empresa : empresas){
-            if (empresa.getAreaAtuacao() == area){
-                empresasArea.add(empresa);
-            }
-        }
-        return empresasArea;
+    public static ArrayList<Empresa> buscarEmpresas(AreaAtuacao area) {
+        return database.getArrayEmpresas().stream()
+                       .filter(empresa -> empresa.getAreaAtuacao() == area)
+                       .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public static ArrayList<Trabalhador> buscarTrabalhadores(AreaAtuacao area){
-        ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
-        ArrayList<Trabalhador> trabalhadoresArea = new ArrayList<>();
-        for (Trabalhador trabalhador : trabalhadores){
-            if (trabalhador.getAreaAtuacao() == area && !trabalhador.getEstaTrabalhando()){
-                trabalhadoresArea.add(trabalhador);
-            }
-        }
-        return trabalhadoresArea;
+    public static ArrayList<Trabalhador> buscarTrabalhadores(AreaAtuacao area) {
+        return database.getArrayTrabalhadores().stream()
+                       .filter(trabalhador -> trabalhador.getAreaAtuacao() == area && !trabalhador.getEstaTrabalhando())
+                       .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public static Trabalhador buscarTrabalhador(String cpf) {
+        if (cpf == null) {
+            return null;
+        }
+        return database.getArrayTrabalhadores().stream()
+                       .filter(trabalhador -> cpf.equals(trabalhador.getCpf()))
+                       .findFirst()
+                       .orElse(null);
+    }
+    
+    public static Empresa buscarEmpresa(String cnpj) {
+        if (cnpj == null) {
+            return null;
+        }
+        return database.getArrayEmpresas().stream()
+                       .filter(empresa -> cnpj.equals(empresa.getCnpj()))
+                       .findFirst()
+                       .orElse(null);
+    }
+    
 } 
