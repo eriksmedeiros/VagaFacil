@@ -161,4 +161,26 @@ public class Operacoes {
             System.out.println("Não existe nenhum trabalhador com esse CPF");
         }
     }
+
+    public static ArrayList<Empresa> buscarEmpresas(AreaAtuacao area){
+        ArrayList<Empresa> empresas = database.getArrayEmpresas();
+        ArrayList<Empresa> empresasArea = new ArrayList<>();
+        for (Empresa empresa : empresas){
+            if (empresa.getAreaAtuacao() == area){
+                empresasArea.add(empresa);
+            }
+        }
+        return empresasArea;
+    }
+
+    public static ArrayList<Trabalhador> buscarTrabalhadores(AreaAtuacao area){
+        ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
+        ArrayList<Trabalhador> trabalhadoresArea = new ArrayList<>();
+        for (Trabalhador trabalhador : trabalhadores){
+            if (trabalhador.getAreaAtuacao() == area && !trabalhador.getEstaTrabalhando()){
+                trabalhadoresArea.add(trabalhador);
+            }
+        }
+        return trabalhadoresArea;
+    }
 } 
