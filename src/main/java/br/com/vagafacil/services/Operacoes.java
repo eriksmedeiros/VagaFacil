@@ -25,36 +25,10 @@ public class Operacoes {
         }
     }
 
-    public static void cadastrarTrabalhador() {
-        @SuppressWarnings("resource")
-        Scanner scan = new Scanner(System.in);
-
+    public static void cadastrarTrabalhador(String nome, String cpf, AreaAtuacao areaAtuacao, double salario, String descricao) {
         try {
-            System.out.println("Digite o nome do trabalhador: ");
-            String nome = scan.nextLine();
+            Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, null);
 
-            System.out.println("Digite o CPF do trabalhador: ");
-            String cpf = scan.nextLine();
-
-            System.out.println("Digite o salário do trabalhador:");
-            double salario = scan.nextDouble();
-            scan.nextLine();
-
-            AreaAtuacao areaAtuacao = null;
-            while (areaAtuacao == null) {
-                System.out.println("Escolha uma das Áreas de Atuação:");
-                AreaAtuacao.exibirOpções();
-                try {
-                    areaAtuacao = AreaAtuacao.valueOf(scan.nextLine().toUpperCase());
-                } catch (Exception e) {
-                    System.out.println("Opção inválida, tente novamente.");
-                }
-            }
-
-            System.out.println("Adicione uma Descrição:");
-            String descricao = scan.nextLine();
-
-            Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, false);
             database.adicionarTrabalhador(trabalhador);
             System.out.println("Trabalhador cadastrado com sucesso!");
         } catch (Exception e) {

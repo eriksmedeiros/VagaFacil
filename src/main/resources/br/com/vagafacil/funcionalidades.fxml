@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.vagafacil.controller.FuncionalidadesController" spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+    <!-- Título -->
+    <Text text="Funcionalidades: " style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Botões principais -->
+    <Button text="Contratar Trabalhador" fx:id="btnContratarTrabalhador" onAction="#abrirTelaContratarTrabalhador" />
+
+    <Button text="Demitir Trabalhador" fx:id="btnDemitirTrabalhador" onAction="#abrirTelaDemitirTrabalhador" />
+
+    <Button text="Listar Empresas" fx:id="btnListarEmpresas" onAction="#abrirTelaListarEmpresas" />
+
+    <Button text="Listar Trabalhadores" fx:id="btnListarTrabalhadores" onAction="#abrirTelaListarTrabalhadores" />
+
+    <Button text="Buscar Empresa" fx:id="btnBuscarEmpresa" onAction="#abrirTelaBuscarEmpresa" />
+
+    <Button text="Buscar Trabalhador" fx:id="btnBuscarTrabalhador" onAction="#abrirTelaBuscarTrabalhador" />
+</VBox>

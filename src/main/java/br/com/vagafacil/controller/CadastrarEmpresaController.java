@@ -50,7 +50,6 @@ public class CadastrarEmpresaController {
             // Passa os dados para a classe Operacoes
             Operacoes.cadastrarEmpresa(nome, cnpj, area, contaBancaria, descricao);
 
-            System.out.println("Empresa cadastrada com sucesso!");
             limparCampos();
         } catch (Exception e) {
             System.err.println("Erro ao cadastrar empresa: " + e.getMessage());

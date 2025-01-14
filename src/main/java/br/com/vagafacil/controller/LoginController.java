@@ -16,12 +16,12 @@ public class LoginController {
 
     // Método para abrir a tela de cadastro de trabalhador
     public void abrirTelaCadastrarTrabalhador(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/view/TelaCadastrarTrabalhador.fxml", "Cadastrar Trabalhador");
+        carregarTela("/br/com/vagafacil/CadastrarTrabalhador.fxml", "Cadastrar Trabalhador");
     }
 
     // Método para abrir a tela de funcionalidades
     public void abrirTelaFuncionalidades(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/view/TelaFuncionalidades.fxml", "Funcionalidades");
+        carregarTela("/br/com/vagafacil/funcionalidades.fxml", "Funcionalidades");
     }
 
     // Método genérico para carregar telas
