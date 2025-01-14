@@ -11,11 +11,11 @@ import javafx.stage.Stage;
 public class FuncionalidadesController {
     
     public void abrirTelaContratarTrabalhador(@SuppressWarnings("exports") ActionEvent event) {
-       carregarTela("/caminho/contratarTrabalhador", "Contratar Trabalhador"); 
+       carregarTela("/br/com/vagafacil/contratarTrabalhador.fxml", "Contratar Trabalhador"); 
     }
 
     public void abrirTelaDemitirTrabalhador(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/caminho/demitirTrabalhador", "Demitir Trabalhador"); 
+        carregarTela("/br/com/vagafacil/demitirTrabalhador.fxml", "Demitir Trabalhador"); 
     }
 
     public void abrirTelaListarEmpresas(@SuppressWarnings("exports") ActionEvent event) {

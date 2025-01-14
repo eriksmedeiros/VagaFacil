@@ -36,17 +36,11 @@ public class Operacoes {
         }
     }
 
-    public static void contratarTrabalhador() {
+    public static void contratarTrabalhador(String cnpj, String cpf) {
         @SuppressWarnings("resource")
-        Scanner scan = new Scanner(System.in);
         
-        String cnpj;
-        String cpf;
         Boolean empresaEncontrada = false;
         Boolean trabalhadorEncontrado = false;
-
-        System.out.println("Digite o CNPJ da empresa");
-        cnpj = scan.nextLine();
 
         ArrayList<Empresa> empresas = database.getArrayEmpresas();
         ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
@@ -55,9 +49,6 @@ public class Operacoes {
             if(((Empresa)empresa).getCnpj().equals(cnpj)) {
                 empresaEncontrada = true;
                 Empresa emp = (Empresa) empresa;
-
-                System.out.println("Digite o CPF do trabalhado que você deseja contratar");
-                cpf = scan.nextLine();
 
                 for(Trabalhador trabalhador : trabalhadores) {
                     if(((Trabalhador)trabalhador).getCpf().equals(cpf)) {
@@ -88,17 +79,11 @@ public class Operacoes {
         }
     }
 
-    public static void demitirTrabalhador() {
+    public static void demitirTrabalhador(String cnpj, String cpf) {    
         @SuppressWarnings("resource")
-        Scanner scan = new Scanner(System.in);
-        
-        String cnpj;
-        String cpf;
+       
         Boolean empresaEncontrada = false;
         Boolean trabalhadorEncontrado = false;
-
-        System.out.println("Digite o CNPJ da empresa");
-        cnpj = scan.nextLine();
 
         ArrayList<Empresa> empresas = database.getArrayEmpresas();
         ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
@@ -107,9 +92,6 @@ public class Operacoes {
             if(((Empresa)empresa).getCnpj().equals(cnpj)) {
                 empresaEncontrada = true;
                 Empresa emp = (Empresa) empresa;
-
-                System.out.println("Digite o CPF do trabalhado que você deseja contratar");
-                cpf = scan.nextLine();
 
                 for(Trabalhador trabalhador : trabalhadores) {
                     if(((Trabalhador)trabalhador).getCpf().equals(cpf)) {
