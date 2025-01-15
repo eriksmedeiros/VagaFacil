@@ -33,27 +33,30 @@ public class CadastrarEmpresaController {
 
     @FXML
     public void cadastrarEmpresa(@SuppressWarnings("exports") ActionEvent event) {
-        try {
-            // Recupera os dados dos campos
-            String nome = txtNomeEmpresa.getText();
-            AreaAtuacao area = cbAreaAtuacao.getValue();
-            String cnpj = txtCNPJ.getText();
-            String descricao = txtDescricao.getText();
-            double contaBancaria = Double.parseDouble(txtContaBancaria.getText());
+        // Recupera os dados dos campos
+        String nome = txtNomeEmpresa.getText();
+        AreaAtuacao area = cbAreaAtuacao.getValue();
+        String cnpj = txtCNPJ.getText();
+        String descricao = txtDescricao.getText();
+        double contaBancaria = Double.parseDouble(txtContaBancaria.getText());
+        String resultado = Operacoes.cadastrarEmpresa(nome, cnpj, area, contaBancaria, descricao);
 
-            // Validações simples
-            if (nome.isEmpty() || area == null || cnpj.isEmpty() || descricao.isEmpty() || txtContaBancaria.getText().isEmpty()) {
-                System.out.println("Por favor, preencha todos os campos.");
-                return;
-            }
 
-            // Passa os dados para a classe Operacoes
-            Operacoes.cadastrarEmpresa(nome, cnpj, area, contaBancaria, descricao);
-
-            limparCampos();
-        } catch (Exception e) {
-            System.err.println("Erro ao cadastrar empresa: " + e.getMessage());
+        // Validações simples
+        if (nome.isEmpty() || area == null || cnpj.isEmpty() || descricao.isEmpty() || txtContaBancaria.getText().isEmpty()) {
+            Operacoes.exibeErro("Erro", "Campos obrigatórios", "Por favor, preencha todos os campos.");
+            return;
         }
+
+        if (resultado != null) {
+            if(resultado.startsWith("Erro")) {
+                Operacoes.exibeErro("Erro", "Cadastro não realizado", resultado);
+            } else if(resultado.startsWith("Sucesso")) {
+                Operacoes.exibeAlert("Sucesso", "Cadastro realizado", resultado);
+            }
+        }
+
+        limparCampos();
     }
 
     @FXML

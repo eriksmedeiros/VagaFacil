@@ -16,7 +16,7 @@ public class Empresa {
         this.contaBancaria = contaBancaria;
         this.descricao = descricao;
         this.areaAtuacao = areaAtuacao;
-        this.funcionarios = funcionarios;
+        this.funcionarios = new ArrayList<Trabalhador>();
     }
 
     public String getCnpj() {

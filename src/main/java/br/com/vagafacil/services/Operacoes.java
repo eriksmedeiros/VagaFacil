@@ -1,42 +1,43 @@
 package br.com.vagafacil.services;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import br.com.vagafacil.dao.BancoDAO;
 import br.com.vagafacil.models.AreaAtuacao;
 import br.com.vagafacil.models.Empresa;
 import br.com.vagafacil.models.Trabalhador;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Operacoes {
     private static BancoDAO database = BancoDAO.getInstanciaBancoDAO();
 
-    public static void cadastrarEmpresa(String nome, String cnpj, AreaAtuacao areaAtuacao, double contaBancaria, String descricao) {
+    public static String cadastrarEmpresa(String nome, String cnpj, AreaAtuacao areaAtuacao, double contaBancaria, String descricao) {
         try {
             // Criação da empresa com os dados fornecidos
             Empresa empresa = new Empresa(cnpj, nome, contaBancaria, descricao, areaAtuacao, null);
     
             // Adiciona a empresa ao banco de dados
             database.adicionarEmpresa(empresa);
-            System.out.println("Empresa cadastrada com sucesso!");
+            return "Sucesso: Empresa cadastrada com sucesso!";
         } catch (Exception e) {
-            System.out.println("Erro ao cadastrar empresa: " + e.getMessage());
+            return "Erro: Empresa não cadastrada. " + e.getMessage();
         }
     }
 
-    public static void cadastrarTrabalhador(String nome, String cpf, AreaAtuacao areaAtuacao, double salario, String descricao) {
+    public static String cadastrarTrabalhador(String nome, String cpf, AreaAtuacao areaAtuacao, double salario, String descricao) {
         try {
-            Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, null);
+            Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, false);
 
             database.adicionarTrabalhador(trabalhador);
-            System.out.println("Trabalhador cadastrado com sucesso!");
+            return "Sucesso: Trabalhador cadastrado com sucesso!";
         } catch (Exception e) {
-            System.out.println("Erro ao cadastrar trabalhador: " + e.getMessage());
+            return "Erro: Trabalhador não cadastrado. " + e.getMessage();
         }
     }
 
-    public static void contratarTrabalhador(String cnpj, String cpf) {
+    public static String contratarTrabalhador(String cnpj, String cpf) {
         @SuppressWarnings("resource")
         
         Boolean empresaEncontrada = false;
@@ -53,16 +54,20 @@ public class Operacoes {
                 for(Trabalhador trabalhador : trabalhadores) {
                     if(((Trabalhador)trabalhador).getCpf().equals(cpf)) {
                         trabalhadorEncontrado = true;
+                        
                         if(((Trabalhador)trabalhador).getEstaTrabalhando().equals(true)) {
-                            System.out.println("Não é possível contratar " +trabalhador.getNome() +", pois ele(a) já está em um trabalho");
-                            break;
+                            return "Erro: Não é possível contratar " + trabalhador.getNome() +
+                                ", pois ele já está em um trabalho.";
+
                         } else {
                             if(emp.getContaBancaria() < trabalhador.getSalario()) {
-                                System.out.println("A empresa não tem saldo suficiente para pagar esse trabalhador.");
+                                return "Erro: Saldo insuficiente para contratar " + trabalhador.getNome() + ".";
+
                             } else {
                                 emp.adicionarFuncionario(trabalhador);
                                 trabalhador.setEstaTrabalhando(true);
                                 emp.setContaBancaria(emp.getContaBancaria() - trabalhador.getSalario());
+                                return "Sucesso: Trabalhador " + trabalhador.getNome() + " contratado com sucesso!";
                             }
                         }
                     }
@@ -71,15 +76,17 @@ public class Operacoes {
         }
 
         if (!empresaEncontrada) {
-            System.out.println("Não existe nenhuma empresa com esse CNPJ");
+            return "Erro: Não existe nenhuma empresa com esse CNPJ.";
         }
 
         if (!trabalhadorEncontrado) {
-            System.out.println("Não existe nenhum trabalhador com esse CPF");
+            return "Erro: Não existe nenhum trabalhador com esse CPF.";
         }
+
+        return null;
     }
 
-    public static void demitirTrabalhador(String cnpj, String cpf) {    
+    public static String demitirTrabalhador(String cnpj, String cpf) {    
         @SuppressWarnings("resource")
        
         Boolean empresaEncontrada = false;
@@ -101,8 +108,9 @@ public class Operacoes {
                                 emp.demitirFuncionario(trb);
                                 trb.setEstaTrabalhando(false);
                                 emp.setContaBancaria(emp.getContaBancaria() + trabalhador.getSalario());
+                                return "Sucesso: Trabalhador " + trabalhador.getNome() + " demitido com sucesso!";
                             } else {
-                                System.out.println("Esse funcionário não pertence à empresa");
+                                return "Erro: O trabalhador " + trabalhador.getNome() + " não pertence a empresa.";
                             }
                         }
                     }
@@ -111,12 +119,14 @@ public class Operacoes {
         }
 
         if (!empresaEncontrada) {
-            System.out.println("Não existe nenhuma empresa com esse CNPJ");
+            return "Erro: Não existe nenhuma empresa com esse CNPJ.";
         }
 
         if (!trabalhadorEncontrado) {
-            System.out.println("Não existe nenhum trabalhador com esse CPF");
+            return "Erro: Não existe nenhum trabalhador com esse CPF.";
         }
+
+        return null;
     }
 
     public static ArrayList<Empresa> buscarEmpresas(AreaAtuacao area) {
@@ -149,6 +159,22 @@ public class Operacoes {
                        .filter(empresa -> cnpj.equals(empresa.getCnpj()))
                        .findFirst()
                        .orElse(null);
+    }
+
+    public static void exibeErro(String titulo, String cabecalho, String mensagem) {
+        Alert alerta = new Alert(AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();   
+    }
+
+    public static void exibeAlert(String titulo, String cabecalho, String mensagem) {
+        Alert alerta = new Alert(AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();   
     }
     
 } 

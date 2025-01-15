@@ -19,7 +19,7 @@ public class FuncionalidadesController {
     }
 
     public void abrirTelaListarEmpresas(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/caminho/listarEmpresas", "Listar Empresas"); 
+        carregarTela("/br/com/vagafacil/ListarEmpresas.fxml", "Listar Empresas"); 
     }
 
     public void abrirTelaListarTrabalhadores(@SuppressWarnings("exports") ActionEvent event) {

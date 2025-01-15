@@ -24,14 +24,21 @@ public class DemitirTrabalhadorController {
     void demitirTrabalhador(ActionEvent event) {
         String cnpj = txtCNPJ.getText();
         String cpf = txtCPF.getText();
+        String resultado = Operacoes.demitirTrabalhador(cnpj, cpf);
 
         if (cnpj.isEmpty() || cpf.isEmpty()) {
-            System.out.println("Por favor, preencha todos os campos.");
+            Operacoes.exibeErro("Erro", "Campos obrigatórios", "Por favor, preencha todos os campos.");
             return;
         }
-
-        Operacoes.demitirTrabalhador(cnpj, cpf);
-
+        
+        if (resultado != null) {
+            if (resultado.startsWith("Erro")) {
+                Operacoes.exibeErro("Erro", "Erro ao demitir trabalhador", resultado);
+            } else if (resultado.startsWith("Sucesso")) {
+                Operacoes.exibeAlert("Sucesso", "Trabalhador demitido", resultado);
+            }
+        }
+        
         limparCampos();
     }
 

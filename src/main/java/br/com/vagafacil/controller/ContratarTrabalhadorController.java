@@ -24,13 +24,20 @@ public class ContratarTrabalhadorController {
     void contratarTrabalhador(ActionEvent event) {
         String cnpj = txtCNPJ.getText();
         String cpf = txtCPF.getText();
+        String resultado = Operacoes.contratarTrabalhador(cnpj, cpf);
 
         if (cnpj.isEmpty() || cpf.isEmpty()) {
-            System.out.println("Por favor, preencha todos os campos.");
+            Operacoes.exibeErro("Erro", "Campos obrigatórios", "Por favor, preencha todos os campos.");
             return;
         }
 
-        Operacoes.contratarTrabalhador(cnpj, cpf);
+        if (resultado != null) {
+            if(resultado.startsWith("Erro")) {
+                Operacoes.exibeErro("Erro", "Erro ao contratar trabalhador", resultado);
+            } else if(resultado.startsWith("Sucesso")) {
+                Operacoes.exibeAlert("Sucesso", "Trabalhador contratado", resultado);
+            }
+        }
 
         limparCampos();
     }

@@ -32,25 +32,29 @@ public class CadastrarTrabalhadorController {
 
     @FXML
     public void cadastrarTrabalhador(@SuppressWarnings("exports") ActionEvent event) {
-        try {
 
-            String nome = txtNomeTrabalhador.getText();
-            AreaAtuacao area = cbAreaAtuacao.getValue();
-            String cpf = txtCpf.getText();
-            String descricao = txtDescricao.getText();
-            double salario = Double.parseDouble(txtSalario.getText());
+        String nome = txtNomeTrabalhador.getText();
+        AreaAtuacao area = cbAreaAtuacao.getValue();
+        String cpf = txtCpf.getText();
+        String descricao = txtDescricao.getText();
+        double salario = Double.parseDouble(txtSalario.getText());
+        String resultado = Operacoes.cadastrarTrabalhador(nome, cpf, area, salario, descricao);
 
-            if (nome.isEmpty() || area == null || cpf.isEmpty() || descricao.isEmpty() || txtSalario.getText().isEmpty()) {
-                System.out.println("Por favor, preencha todos os campos");
-                return;
-            }
 
-            Operacoes.cadastrarTrabalhador(nome, cpf, area, salario, descricao);
-
-            limparCampos();
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar trabalhador: " +e.getMessage());
+        if (nome.isEmpty() || area == null || cpf.isEmpty() || descricao.isEmpty() || txtSalario.getText().isEmpty()) {
+            Operacoes.exibeErro("Erro", "Campos obrigatórios", "Por favor, preencha todos os campos.");
+            return;
         }
+
+        if (resultado != null) {
+            if(resultado.startsWith("Erro")) {
+                Operacoes.exibeErro("Erro", "Cadastro não realizado", resultado);
+            } else if(resultado.startsWith("Sucesso")) {
+                Operacoes.exibeAlert("Sucesso", "Cadastro realizado", resultado);
+            }
+        }
+
+        limparCampos();
     }
 
     @FXML
