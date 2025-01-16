@@ -1,39 +1,36 @@
 package br.com.vagafacil.dao;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 import br.com.vagafacil.models.Empresa;
 import br.com.vagafacil.models.Trabalhador;
 
 public class BancoDAO {
-    
-    //atributos
+
+    // Atributos
     private ArrayList<Empresa> empresas;
     private ArrayList<Trabalhador> trabalhadores;
 
-    //instancia privada
+    // Instância privada
     private static BancoDAO instanciaBancoDAO;
 
-    //construtor privador
+    // Construtor privado
     private BancoDAO() {
         empresas = new ArrayList<>();
         trabalhadores = new ArrayList<>();
+        carregarDados(); // Carrega os dados ao inicializar a instância
     }
 
-    //métodos
+    // Singleton para obter a instância do BancoDAO
     public static BancoDAO getInstanciaBancoDAO() {
         if (instanciaBancoDAO == null) {
             instanciaBancoDAO = new BancoDAO();
         }
-
         return instanciaBancoDAO;
     }
 
+    // Métodos para acessar e modificar listas
     public ArrayList<Empresa> getArrayEmpresas() {
         return empresas;
     }
@@ -58,41 +55,42 @@ public class BancoDAO {
         trabalhadores.remove(trabalhador);
     }
 
+    // Salva os dados em um arquivo binário
     public void salvarDados() {
         try {
             File dataFolder = new File("data");
-        
             if (!dataFolder.exists()) {
-                dataFolder.mkdirs();
+                dataFolder.mkdirs(); // Cria o diretório se não existir
             }
-        
+
             File file = new File(dataFolder, "dados.bin");
-        
+
             try (FileOutputStream fos = new FileOutputStream(file);
-                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
                 oos.writeObject(trabalhadores);
-                oos.writeObject(empresas); 
-                System.out.println("Dados salvos com sucesso");
-                }
+                oos.writeObject(empresas);
+                System.out.println("Dados salvos com sucesso!");
+            }
         } catch (Exception e) {
             System.out.println("Erro ao salvar os dados: " + e.getMessage());
         }
     }
 
+    // Carrega os dados de um arquivo binário
     @SuppressWarnings("unchecked")
     public void carregarDados() {
         try {
             File dataFolder = new File("data");
             File file = new File(dataFolder, "dados.bin");
-            
+
             if (!file.exists()) {
-                return;
+                return; // Não há dados para carregar
             }
-    
+
             try (FileInputStream fis = new FileInputStream(file);
                  ObjectInputStream ois = new ObjectInputStream(fis)) {
                 trabalhadores = (ArrayList<Trabalhador>) ois.readObject();
-                empresas = (ArrayList<Empresa>) ois.readObject(); 
+                empresas = (ArrayList<Empresa>) ois.readObject();
                 System.out.println("Dados carregados com sucesso!");
             }
         } catch (Exception e) {

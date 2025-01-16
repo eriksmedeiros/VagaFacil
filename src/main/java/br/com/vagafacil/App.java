@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import br.com.vagafacil.dao.BancoDAO;
+
 import java.io.IOException;
 
 /**
@@ -17,9 +19,19 @@ public class App extends Application {
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
+        // Carrega os dados ao iniciar a aplicação
+        BancoDAO.getInstanciaBancoDAO(); // O carregamento já ocorre no construtor do singleton
+
         scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("Vaga Fácil");
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        // Salva os dados ao encerrar a aplicação
+        BancoDAO.getInstanciaBancoDAO().salvarDados();
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -34,5 +46,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

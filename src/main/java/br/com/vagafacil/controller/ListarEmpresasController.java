@@ -19,11 +19,9 @@ public class ListarEmpresasController {
     private ComboBox<AreaAtuacao> cbAreaAtuacao;
 
     @FXML
-    private ListView<Empresa> lvEmpresas;
+    private ListView<String> lvEmpresas; // ListView exibe Strings formatadas
 
-    private ArrayList<Empresa> empresas;
-
-    private ObservableList<Empresa> obsEmpresas;
+    private ObservableList<String> obsEmpresas;
 
     @FXML
     public void initialize() {
@@ -44,17 +42,18 @@ public class ListarEmpresasController {
             // Limpa a ListView antes de adicionar os novos itens
             lvEmpresas.getItems().clear();
 
-            // Recupera os dados dos campos
+            // Recupera a área de atuação selecionada
             AreaAtuacao area = cbAreaAtuacao.getValue();
             if (area == null) {
                 System.err.println("Erro: Nenhuma área de atuação selecionada.");
                 return;
             }
 
-            // Passa os dados para a classe Operacoes
-            empresas = Operacoes.buscarEmpresas(area);
-            obsEmpresas = FXCollections.observableList(empresas);
+            // Chama o método Operacoes.buscarEmpresas para obter a lista de Strings formatadas
+            ArrayList<String> empresasFormatadas = Operacoes.buscarEmpresas(area);
 
+            // Converte a lista para um ObservableList e define como itens da ListView
+            obsEmpresas = FXCollections.observableArrayList(empresasFormatadas);
             lvEmpresas.setItems(obsEmpresas);
 
         } catch (Exception e) {

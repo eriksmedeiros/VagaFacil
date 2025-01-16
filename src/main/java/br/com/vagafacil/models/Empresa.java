@@ -1,8 +1,11 @@
 package br.com.vagafacil.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Empresa {
+public class Empresa implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String cnpj;
     private String nome;
     private Double contaBancaria;
