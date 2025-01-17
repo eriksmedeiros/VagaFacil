@@ -28,5 +28,5 @@
 
     <!-- Botões -->
     <Button text="Cadastrar" fx:id="btnCadastrar" onAction="#cadastrarEmpresa" />
-    <Button text="Voltar" fx:id="btnVoltar" onAction="#voltarParaTelaInicial" />
+    <Button text="Voltar" fx:id="btnVoltar" onAction="#voltarTelaInicial" />
 </VBox>
