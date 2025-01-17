@@ -23,15 +23,15 @@ public class FuncionalidadesController {
     }
 
     public void abrirTelaListarTrabalhadores(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/caminho/listarTrabalhadores", "Listar Trabalhadores"); 
+        carregarTela("/br/com/vagafacil/ListarTrabalhadores.fxml", "Listar Trabalhadores"); 
     }
 
     public void abrirTelaBuscarEmpresa(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/caminho/buscarEmpresa", "Buscar Empresa"); 
+        carregarTela("/br/com/vagafacil/BuscarEmpresa.fxml", "Buscar Empresa"); 
     }
     
     public void abrirTelaBuscarTrabalhador(@SuppressWarnings("exports") ActionEvent event) {
-        carregarTela("/caminho/buscarTrabalhador", "Buscar Trabalhador"); 
+        carregarTela("/br/com/vagafacil/BuscarTrabalhador.fxml", "Buscar Trabalhador"); 
     }
 
     private void carregarTela(String caminhoFXML, String titulo) {
