@@ -6,9 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import br.com.vagafacil.Interfaces.TelaSegundaria;
 import br.com.vagafacil.models.*;
 
-public class CadastrarEmpresaController {
+public class CadastrarEmpresaController implements TelaSegundaria{
     
     @FXML
     private TextField txtNomeEmpresa;
@@ -59,18 +60,19 @@ public class CadastrarEmpresaController {
         limparCampos();
     }
 
-    @FXML
-    public void voltarParaTelaInicial(@SuppressWarnings("exports") ActionEvent event) {
-        // Fecha a janela atual
-        Stage stage = (Stage) txtNomeEmpresa.getScene().getWindow();
-        stage.close();
-    }
-
     private void limparCampos() {
         txtNomeEmpresa.clear();
         cbAreaAtuacao.setValue(null);
         txtCNPJ.clear();
         txtContaBancaria.clear();
         txtDescricao.clear();
+    }
+
+    @FXML
+    @Override
+    public void voltarTelaInicial() {
+        // Fecha a janela atual
+        Stage stage = (Stage) txtNomeEmpresa.getScene().getWindow();
+        stage.close();
     }
 }

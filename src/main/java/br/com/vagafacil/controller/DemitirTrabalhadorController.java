@@ -1,5 +1,6 @@
 package br.com.vagafacil.controller;
 
+import br.com.vagafacil.Interfaces.TelaSegundaria;
 import br.com.vagafacil.services.Operacoes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class DemitirTrabalhadorController {
+public class DemitirTrabalhadorController implements TelaSegundaria {
     @FXML
     private Button btnDemitir;
 
@@ -42,14 +43,15 @@ public class DemitirTrabalhadorController {
         limparCampos();
     }
 
-    @FXML
-    void voltarTelaInicial(ActionEvent event) {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
-    }
-
     private void limparCampos() {
         txtCNPJ.clear();
         txtCPF.clear();
+    }
+
+    @FXML
+    @Override
+    public void voltarTelaInicial() {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 }
