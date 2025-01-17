@@ -15,12 +15,23 @@ public class Operacoes {
 
     public static String cadastrarEmpresa(String nome, String cnpj, AreaAtuacao areaAtuacao, double contaBancaria, String descricao) {
         try {
-            // Criação da empresa com os dados fornecidos
-            Empresa empresa = new Empresa(cnpj, nome, contaBancaria, descricao, areaAtuacao, null);
-    
-            // Adiciona a empresa ao banco de dados
-            database.adicionarEmpresa(empresa);
-            return "Sucesso: Empresa cadastrada com sucesso!";
+            ArrayList<Empresa> empresas = database.getArrayEmpresas();
+            Boolean cnpjExiste = false;
+
+            for (Empresa empresa : empresas) {
+                if (((Empresa)empresa).getCnpj().equals(cnpj)) {
+                    cnpjExiste = true;
+                }
+            }
+
+            if (cnpjExiste == true) {
+                return "Erro: Não é possível cadastrar essa empresa, esse CNPJ já existe";
+            } else {
+                Empresa empresa = new Empresa(cnpj, nome, contaBancaria, descricao, areaAtuacao, null);
+                database.adicionarEmpresa(empresa);
+                return "Sucesso: Empresa cadastrada com sucesso!";
+            }
+            
         } catch (Exception e) {
             return "Erro: Empresa não cadastrada. " + e.getMessage();
         }
@@ -28,18 +39,28 @@ public class Operacoes {
 
     public static String cadastrarTrabalhador(String nome, String cpf, AreaAtuacao areaAtuacao, double salario, String descricao) {
         try {
-            Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, false);
+            ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
+            Boolean cpfExiste = false;
 
-            database.adicionarTrabalhador(trabalhador);
-            return "Sucesso: Trabalhador cadastrado com sucesso!";
+            for (Trabalhador trabalhador : trabalhadores) {
+                if (((Trabalhador)trabalhador).getCpf().equals(cpf)) {
+                    cpfExiste = true;
+                }
+            }
+
+            if (cpfExiste == true) {
+                return "Erro: Não é possível cadastrar esse trabalhador, esse CPF já existe";
+            } else {
+                Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, false);
+                database.adicionarTrabalhador(trabalhador);
+                return "Sucesso: Trabalhador cadastrado com sucesso!";
+            }
         } catch (Exception e) {
             return "Erro: Trabalhador não cadastrado. " + e.getMessage();
         }
     }
 
     public static String contratarTrabalhador(String cnpj, String cpf) {
-        @SuppressWarnings("resource")
-        
         Boolean empresaEncontrada = false;
         Boolean trabalhadorEncontrado = false;
 
@@ -66,7 +87,9 @@ public class Operacoes {
                             } else {
                                 emp.adicionarFuncionario(trabalhador);
                                 trabalhador.setEstaTrabalhando(true);
+                                trabalhador.setEmpresas(emp.getNome());
                                 emp.setContaBancaria(emp.getContaBancaria() - trabalhador.getSalario());
+                                
                                 return "Sucesso: Trabalhador " + trabalhador.getNome() + " contratado com sucesso!";
                             }
                         }
@@ -86,9 +109,7 @@ public class Operacoes {
         return null;
     }
 
-    public static String demitirTrabalhador(String cnpj, String cpf) {    
-        @SuppressWarnings("resource")
-       
+    public static String demitirTrabalhador(String cnpj, String cpf) {
         Boolean empresaEncontrada = false;
         Boolean trabalhadorEncontrado = false;
 
@@ -129,15 +150,22 @@ public class Operacoes {
         return null;
     }
 
-    public static ArrayList<Empresa> buscarEmpresas(AreaAtuacao area) {
+    public static ArrayList<String> buscarEmpresas(AreaAtuacao area) {
         return database.getArrayEmpresas().stream()
-                       .filter(empresa -> empresa.getAreaAtuacao() == area)
-                       .collect(Collectors.toCollection(ArrayList::new));
+                .filter(empresa -> empresa.getAreaAtuacao() == area)
+                .map(empresa -> {
+                    String nomesFuncionarios = empresa.getFuncionarios().stream()
+                            .map(Trabalhador::getNome) // Extrai o nome de cada funcionário
+                            .collect(Collectors.joining(", ")); // Junta os nomes em uma única String
+                    return empresa.getNome() + " - CNPJ: " + empresa.getCnpj() + " - Funcionários: " + nomesFuncionarios;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
     }
-
-    public static ArrayList<Trabalhador> buscarTrabalhadores(AreaAtuacao area) {
+    
+    public static ArrayList<String> buscarTrabalhadores(AreaAtuacao area) {
         return database.getArrayTrabalhadores().stream()
                        .filter(trabalhador -> trabalhador.getAreaAtuacao() == area && !trabalhador.getEstaTrabalhando())
+                        .map(trabalhador -> trabalhador.getNome() + " - Salário: " + trabalhador.getSalario())
                        .collect(Collectors.toCollection(ArrayList::new));
     }
 

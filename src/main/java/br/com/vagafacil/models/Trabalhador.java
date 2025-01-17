@@ -1,8 +1,11 @@
 package br.com.vagafacil.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Trabalhador {
+public class Trabalhador implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String nome;
     private String cpf;
     private Double salario;
@@ -65,8 +68,12 @@ public class Trabalhador {
         return empresas;
     }
 
-    public void setEmpresas(ArrayList<String> empresas) {
-        this.empresas = empresas;
+    public void setEmpresas(String empresa) {
+        // Inicializa a lista de empresas se for nula
+        if (empresas == null) {
+            empresas = new ArrayList<>();
+        }
+        empresas.add(empresa);
     }
 
     public Boolean getEstaTrabalhando() {

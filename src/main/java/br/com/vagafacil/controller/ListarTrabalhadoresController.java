@@ -3,7 +3,6 @@ package br.com.vagafacil.controller;
 import java.util.ArrayList;
 
 import br.com.vagafacil.models.AreaAtuacao;
-import br.com.vagafacil.models.Trabalhador;
 import br.com.vagafacil.services.Operacoes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,11 +18,11 @@ public class ListarTrabalhadoresController {
     private ComboBox<AreaAtuacao> cbAreaAtuacao;
 
     @FXML
-    private ListView<Trabalhador> lvTrabalhadores;
+    private ListView<String> lvTrabalhadores; // Alterado para exibir Strings
 
-    private ArrayList<Trabalhador> trabalhadores;
+    private ArrayList<String> trabalhadores; // Alterado para lista de Strings
 
-    private ObservableList<Trabalhador> obsTrabalhadores;
+    private ObservableList<String> obsTrabalhadores; // Alterado para ObservableList de Strings
 
     @FXML
     public void initialize() {
@@ -55,6 +54,7 @@ public class ListarTrabalhadoresController {
             trabalhadores = Operacoes.buscarTrabalhadores(area);
             obsTrabalhadores = FXCollections.observableList(trabalhadores);
 
+            // Atualiza a ListView com os nomes e CPFs
             lvTrabalhadores.setItems(obsTrabalhadores);
 
         } catch (Exception e) {
