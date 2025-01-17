@@ -1,7 +1,6 @@
 package br.com.vagafacil.services;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import br.com.vagafacil.dao.BancoDAO;
