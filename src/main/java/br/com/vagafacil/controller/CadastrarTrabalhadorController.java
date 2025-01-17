@@ -1,5 +1,6 @@
 package br.com.vagafacil.controller;
 
+import br.com.vagafacil.Interfaces.TelaSegundaria;
 import br.com.vagafacil.models.AreaAtuacao;
 import br.com.vagafacil.services.Operacoes;
 import javafx.event.ActionEvent;
@@ -8,7 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CadastrarTrabalhadorController {
+public class CadastrarTrabalhadorController implements TelaSegundaria{
     
     @FXML
     private TextField txtNomeTrabalhador;
@@ -53,19 +54,20 @@ public class CadastrarTrabalhadorController {
         }
     }
 
-    @FXML
-    public void voltarParaTelaInicial(@SuppressWarnings("exports") ActionEvent event) {
-        // Fecha a janela atual
-        Stage stage = (Stage) txtNomeTrabalhador.getScene().getWindow();
-        stage.close();
-    }
-
     private void limparCampos() {
         txtNomeTrabalhador.clear();
         cbAreaAtuacao.setValue(null);
         txtCpf.clear();
         txtSalario.clear();
         txtDescricao.clear();
+    }
+
+    @FXML
+    @Override
+    public void voltarTelaInicial() {
+        // Fecha a janela atual
+        Stage stage = (Stage) txtNomeTrabalhador.getScene().getWindow();
+        stage.close();
     }
 
 }
