@@ -1,6 +1,7 @@
 package br.com.vagafacil.controller;
 
 import br.com.vagafacil.models.AreaAtuacao;
+import br.com.vagafacil.models.Genero;
 import br.com.vagafacil.services.Operacoes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,9 @@ public class CadastrarTrabalhadorController {
     private ComboBox<AreaAtuacao> cbAreaAtuacao;
 
     @FXML
+    private ComboBox<Genero> cbGenero;
+
+    @FXML
     private TextField txtSalario;
 
     @FXML
@@ -28,6 +32,7 @@ public class CadastrarTrabalhadorController {
     @FXML
     public void initialize() {
         cbAreaAtuacao.getItems().addAll(AreaAtuacao.values());
+        cbGenero.getItems().addAll(Genero.values());
     }
 
     @FXML
@@ -35,10 +40,11 @@ public class CadastrarTrabalhadorController {
 
         String nome = txtNomeTrabalhador.getText();
         AreaAtuacao area = cbAreaAtuacao.getValue();
+        Genero genero = cbGenero.getValue();
         String cpf = txtCpf.getText();
         String descricao = txtDescricao.getText();
         double salario = Double.parseDouble(txtSalario.getText());
-        String resultado = Operacoes.cadastrarTrabalhador(nome, cpf, area, salario, descricao);
+        String resultado = Operacoes.cadastrarTrabalhador(nome, cpf, genero, area, salario, descricao);
 
 
         if (nome.isEmpty() || area == null || cpf.isEmpty() || descricao.isEmpty() || txtSalario.getText().isEmpty()) {

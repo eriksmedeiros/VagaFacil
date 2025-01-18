@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.vagafacil.controller.CadastrarTrabalhadorController" spacing="15" style="-fx-padding: 20;">
+<VBox prefHeight="580.0" prefWidth="250.0" spacing="15" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="br.com.vagafacil.controller.CadastrarTrabalhadorController">
     <!-- Título -->
-    <Label text="Cadastrar Trabalhador" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Cadastrar Trabalhador" />
 
     <!-- Campos do formulário -->
     <Label text="Nome do Trabalhador:" />
@@ -16,6 +16,8 @@
 
     <Label text="Área de Atuação:" />
     <ComboBox fx:id="cbAreaAtuacao" promptText="Selecione a área de atuação" />
+   <Label layoutX="30.0" layoutY="190.0" text="Gênero" />
+   <ComboBox fx:id="cbGenero" layoutX="30.0" layoutY="182.0" promptText="Selecione um gênero" />
 
     <Label text="CPF:" />
     <TextField fx:id="txtCpf" promptText="Digite o CPF" />
@@ -27,6 +29,6 @@
     <TextField fx:id="txtDescricao" promptText="Digite uma descrição do trabalhador" />
 
     <!-- Botões -->
-    <Button text="Cadastrar" fx:id="btnCadastrar" onAction="#cadastrarTrabalhador" />
-    <Button text="Voltar" fx:id="btnVoltar" onAction="#voltarParaTelaInicial" />
+    <Button fx:id="btnCadastrar" onAction="#cadastrarTrabalhador" text="Cadastrar" />
+    <Button fx:id="btnVoltar" onAction="#voltarParaTelaInicial" text="Voltar" />
 </VBox>

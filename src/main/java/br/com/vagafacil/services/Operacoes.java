@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import br.com.vagafacil.dao.BancoDAO;
 import br.com.vagafacil.models.AreaAtuacao;
 import br.com.vagafacil.models.Empresa;
+import br.com.vagafacil.models.Genero;
 import br.com.vagafacil.models.Trabalhador;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -37,7 +38,7 @@ public class Operacoes {
         }
     }
 
-    public static String cadastrarTrabalhador(String nome, String cpf, AreaAtuacao areaAtuacao, double salario, String descricao) {
+    public static String cadastrarTrabalhador(String nome, String cpf, Genero genero, AreaAtuacao areaAtuacao, double salario, String descricao) {
         try {
             ArrayList<Trabalhador> trabalhadores = database.getArrayTrabalhadores();
             Boolean cpfExiste = false;
@@ -51,7 +52,7 @@ public class Operacoes {
             if (cpfExiste == true) {
                 return "Erro: Não é possível cadastrar esse trabalhador, esse CPF já existe";
             } else {
-                Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, areaAtuacao, descricao, null, false);
+                Trabalhador trabalhador = new Trabalhador(nome, cpf, salario, genero, areaAtuacao, descricao, null, false);
                 database.adicionarTrabalhador(trabalhador);
                 return "Sucesso: Trabalhador cadastrado com sucesso!";
             }

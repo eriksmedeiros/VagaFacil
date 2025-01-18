@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.vagafacil.controller.TelaPrincipalController">
+  <children>
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+      <menus>
+        <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="Cadastro">
+          <items>
+            <MenuItem fx:id="btnCadastrarEmpresa" mnemonicParsing="false" onAction="#abrirTelaCadastrarEmpresa" text="Cadastrar Empresa" />
+                  <MenuItem fx:id="btnCadastrarTrabalhador" mnemonicParsing="false" onAction="#abrirTelaCadastrarTrabalhador" text="Cadastrar Trabalhador" />
+          </items>
+        </Menu>
+        <Menu fx:id="mnuGestao" mnemonicParsing="false" text="Gestão">
+          <items>
+            <MenuItem fx:id="btnContratarTrabalhador" mnemonicParsing="false" onAction="#abrirTelaContratarTrabalhador" text="Contratar Trabalhador" />
+                  <MenuItem fx:id="btnDemitirTrabalhador" mnemonicParsing="false" onAction="#abrirTelaDemitirTrabalhador" text="Demitir Trabalhador" />
+          </items>
+        </Menu>
+        <Menu fx:id="mnuVizualizar" mnemonicParsing="false" text="Vizualizar">
+          <items>
+            <MenuItem fx:id="btnListarEmpresas" mnemonicParsing="false" onAction="#abrirTelaListarEmpresas" text="Listar Empresas" />
+                  <MenuItem fx:id="btnListarTrabalhadores" mnemonicParsing="false" onAction="#abrirTelaListarTrabalhadores" text="Listar Trabalhadores" />
+          </items>
+        </Menu>
+            <Menu fx:id="mnuBuscar" mnemonicParsing="false" text="Buscar">
+               <items>
+                  <MenuItem fx:id="btnBuscarEmpresa" mnemonicParsing="false" onAction="#abrirTelaBuscarEmpresa" text="Buscar Empresa" />
+                  <MenuItem fx:id="btnBuscarTrabalhador" mnemonicParsing="false" onAction="#abrirTelaBuscarTrabalhador" text="Buscar Trabalhadores" />
+               </items>
+            </Menu>
+            <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="Ajuda">
+               <items>
+                  <MenuItem fx:id="btnSobre" mnemonicParsing="false" onAction="#abrirTelaSobre" text="Sobre" />
+               </items>
+            </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <HBox alignment="CENTER" layoutY="-25.0" prefHeight="401.0" prefWidth="641.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+              <Label alignment="CENTER" style="&#10;" text="VagaFácil - Bem-Vindo!" textAlignment="CENTER" wrapText="false">
+                <font>
+                  <Font name="System Bold" size="30.0" />
+                </font>
+              </Label>
+               </children>
+            </HBox>
+      </children>
+    </AnchorPane>
+      <AnchorPane prefHeight="34.0" prefWidth="640.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" layoutY="4.0" maxHeight="-Infinity" prefHeight="80.0" prefWidth="640.0" style="-fx-border-color: rgb(192.0,192.0,192.0); -fx-border-insets: 1; -fx-border-width: 1; -fx-border-style: solid;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label fx:id="lblData" text="Data:" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label fx:id="lblHora" text="Hora:" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+  </children>
+</VBox>

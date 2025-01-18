@@ -22,7 +22,7 @@ public class App extends Application {
         // Carrega os dados ao iniciar a aplicação
         BancoDAO.getInstanciaBancoDAO(); // O carregamento já ocorre no construtor do singleton
 
-        scene = new Scene(loadFXML("login"), 640, 480);
+        scene = new Scene(loadFXML("TelaPrincipal"), 800, 600);
         stage.setScene(scene);
         stage.setTitle("Vaga Fácil");
         stage.show();

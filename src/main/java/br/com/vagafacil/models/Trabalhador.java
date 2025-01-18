@@ -9,12 +9,13 @@ public class Trabalhador implements Serializable{
     private String nome;
     private String cpf;
     private Double salario;
+    private Genero genero;
     private AreaAtuacao areaAtuacao;
     private String descricao;
     private ArrayList<String> empresas;
     private Boolean estaTrabalhando;
     
-    public Trabalhador(String nome, String cpf, Double salario, AreaAtuacao areaAtuacao, String descricao, ArrayList<String> empresas, Boolean estaTrabalhando) {
+    public Trabalhador(String nome, String cpf, Double salario, Genero genero, AreaAtuacao areaAtuacao, String descricao, ArrayList<String> empresas, Boolean estaTrabalhando) {
         this.nome = nome;
         this.cpf = cpf;
         this.salario = salario;
@@ -46,6 +47,14 @@ public class Trabalhador implements Serializable{
 
     public void setSalario(Double salario) {
         this.salario = salario;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
     public AreaAtuacao getAreaAtuacao() {
